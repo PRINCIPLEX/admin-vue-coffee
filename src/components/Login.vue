@@ -32,7 +32,6 @@
          type="primary">登录</el-button>
        </el-form-item>
      </el-form>
-
     </div>
   </div>
 </template>
@@ -42,8 +41,8 @@ export default {
   data () {
     return {
       loginForm: {
-        account: 'yz',
-        password: 'yz'
+        account: 'yz2017',
+        password: ''
       },
 
       loginFormRules: {
@@ -53,23 +52,22 @@ export default {
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' }
         ]
+      },
 
-      }
-
+    
     }
   },
   methods: {
     login () {
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) { return };
-        const { data: res } = await this.$http.post('login', this.loginForm)
+        const { data: res } = await this.$http.post('super_login', this.loginForm)
         if (res.status !== 200) {
-          const tokenStr = window.sessionStorage.getItem('token')
-          console.log(tokenStr)
           return this.$message.error('账号或密码错误')
         }
         this.$message.success('登录成功')
         window.sessionStorage.setItem('token', res.token)
+       // window.sessionStorage.setItem('token', 'a')
         this.$router.push('/home')
       })
     }
@@ -82,7 +80,8 @@ export default {
 
 <style lang="less" scoped>
 .login_container {
-    background-color: #2b4b6b;
+    //background: url('../assets/bg.jpg') center center no-repeat;
+    background-color: #D10d11;
     height: 100%;
   }
 .login_box {
